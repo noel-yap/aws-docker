@@ -5,6 +5,16 @@
 key=~/.ssh/aws.pem
 user=ec2-user
 
+if [ ! -r ${key} ]
+then
+  key=~/.ssh/id_ed25519
+
+  if [ ! -r ${key} ]
+  then
+    ssh-keygen -t ed25519 -a 256 -f ${key} -q -N ''
+  fi
+fi
+
 dockerfile=$1
 docker_tag=$(echo ${dockerfile} | sed -e 's|.*\.||')
 
