@@ -6,7 +6,7 @@ key=~/.ssh/aws.pem
 user=ec2-user
 
 dockerfile=$1
-docker_tag=$(echo ${dockerfile} | sed -e 's|.*\.|')
+docker_tag=$(echo ${dockerfile} | sed -e 's|.*\.||')
 
 aws_account_id=$(aws sts get-caller-identity --output text --query Account)
 authorization_token=$(aws ecr get-authorization-token --output text --query authorizationData[].authorizationToken)
